@@ -1,11 +1,31 @@
+import { fetchPokemonList } from '@/Api';
 import { ROUTES } from '@/Consts';
+import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import { Link } from 'react-router';
 
 const ListPageComponent = () => {
+  const { data, isPending, error } = useQuery({
+    queryKey: ['pokemonList'],
+    queryFn: fetchPokemonList,
+  });
+
+  if (isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <div>
       <h1>ListPage</h1>
+      <ul>
+        {data.results.map(p => (
+          <li key={p.name}>{p.name}</li>
+        ))}
+      </ul>
       <li>
         <ul>
           <Link to={ROUTES.HOME}>ホームへ</Link>
