@@ -1,19 +1,37 @@
-import { fetchPokemonList } from '@/Api';
+import { fetchPokemonList, PokemonListLimit } from '@/Api';
 import { ROUTES } from '@/Consts';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { memo, Suspense } from 'react';
+import { memo, Suspense, useCallback, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 
 const ListPageContentComponent = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = useMemo(() => Number(searchParams.get('page') ?? '1'), []);
+
+  const movePage = useCallback(
+    (direction: 'prev' | 'next') => {
+      const delta = direction === 'next' ? 1 : -1;
+      const nextPage = page + delta || 1;
+
+      setSearchParams({ page: String(nextPage) });
+    },
+    [page, setSearchParams],
+  );
+
   const { data } = useSuspenseQuery({
-    queryKey: ['pokemonList'],
-    queryFn: fetchPokemonList,
+    queryKey: ['pokemonList', page],
+    queryFn: () => fetchPokemonList(page),
   });
+
+  const totalPages = useMemo(() => Math.ceil(data.count / PokemonListLimit), []);
 
   return (
     <div>
       <h1>ListPage</h1>
+      <p>
+        {page} / {totalPages} ページ
+      </p>
       <ul>
         {data.results.map(p => (
           <Link key={p.name} to={`/detail/${p.name}`}>
@@ -28,16 +46,9 @@ const ListPageContentComponent = () => {
         <ul>
           <Link to={ROUTES.LIST}>リストへ</Link>
         </ul>
-        <ul>
-          <Link to={'/detail/1'}>詳細1</Link>
-        </ul>
-        <ul>
-          <Link to={'/detail/2'}>詳細2</Link>
-        </ul>
-        <ul>
-          <Link to={'/detail/3'}>詳細3</Link>
-        </ul>
       </li>
+      <button onClick={() => movePage('prev')}>前へ</button>
+      <button onClick={() => movePage('next')}>次へ</button>
     </div>
   );
 };
