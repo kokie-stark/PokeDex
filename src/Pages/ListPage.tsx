@@ -1,30 +1,23 @@
 import { fetchPokemonList } from '@/Api';
 import { ROUTES } from '@/Consts';
-import { useQuery } from '@tanstack/react-query';
-import { memo } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { memo, Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { Link } from 'react-router';
 
-const ListPageComponent = () => {
-  const { data, isPending, error } = useQuery({
+const ListPageContentComponent = () => {
+  const { data } = useSuspenseQuery({
     queryKey: ['pokemonList'],
     queryFn: fetchPokemonList,
   });
-
-  if (isPending) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
 
   return (
     <div>
       <h1>ListPage</h1>
       <ul>
         {data.results.map(p => (
-          <Link to={`/detail/${p.name}`}>
-            <li key={p.name}>{p.name}</li>
+          <Link key={p.name} to={`/detail/${p.name}`}>
+            <li>{p.name}</li>
           </Link>
         ))}
       </ul>
@@ -48,6 +41,20 @@ const ListPageComponent = () => {
     </div>
   );
 };
+
+const ListPageContent = memo(ListPageContentComponent);
+
+const ListPageComponent = () => (
+  <ErrorBoundary
+    fallbackRender={({ error }) => (
+      <div>Error: {error instanceof Error ? error.message : 'unknown error'}</div>
+    )}
+  >
+    <Suspense fallback={<div>Loading...</div>}>
+      <ListPageContent />
+    </Suspense>
+  </ErrorBoundary>
+);
 
 const ListPage = memo(ListPageComponent);
 

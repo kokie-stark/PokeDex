@@ -1,4 +1,4 @@
-type PokemonDetailResponse = {
+export type PokemonDetailResponse = {
   name: string;
   sprites: {
     front_default: string;
