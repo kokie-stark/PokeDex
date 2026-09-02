@@ -2,5 +2,5 @@
   "version": "0.2",
   "language": "en",
   "words": ["pokedex", "pokeapi"],
-  "ignorePaths": ["node_modules", "dist", "pnpm-lock.yaml"]
+  "ignorePaths": ["node_modules", "**/dist", "pnpm-lock.yaml"]
 }
