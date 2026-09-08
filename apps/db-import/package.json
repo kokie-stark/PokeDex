@@ -1,0 +1,9 @@
+{
+  "name": "@pokedex/db-import",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "transform": "node src/transform.mjs"
+  }
+}
