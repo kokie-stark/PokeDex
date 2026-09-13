@@ -18,8 +18,8 @@ const DetailPageContentComponent = (props: DetailPageContentProps) => {
 
   return (
     <div>
-      <h3>名前: {data.name_ja}</h3>
-      {data.image_url && <img src={data.image_url} alt={data.name_ja}></img>}
+      <h3>名前: {data.name}</h3>
+      {data.imageUrl && <img src={data.imageUrl} alt={data.name}></img>}
       <Link to={ROUTES.HOME}>ホームへ</Link>
     </div>
   );
