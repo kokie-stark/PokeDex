@@ -1,12 +1,22 @@
+import { API_URL } from './apiUrl';
+
 export type PokemonDetailResponse = {
-  name: string;
-  sprites: {
-    front_default: string;
-  };
+  id: number;
+  name_ja: string;
+  height: number;
+  weight: number;
+  image_url: string | null;
+  pokemon_types: { slot: number; types: { id: number; name_ja: string } }[];
+  pokemon_abilities: {
+    slot: number;
+    is_hidden: boolean;
+    abilities: { id: number; name_ja: string };
+  }[];
+  pokemon_stats: { base_stat: number; stats: { id: number; name_ja: string } }[];
 };
 
-const fetchPokemonDetail = async (name: string): Promise<PokemonDetailResponse> => {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+const fetchPokemonDetail = async (id: number): Promise<PokemonDetailResponse> => {
+  const res = await fetch(`${API_URL}/pokemon/${id}`);
 
   if (!res.ok) {
     throw new Error('failed to fetch');

@@ -40,8 +40,8 @@ const ListPageContentComponent = () => {
       </p>
       <ul>
         {data.results.map(p => (
-          <Link key={p.name} to={`/detail/${p.name}`}>
-            <li>{p.name}</li>
+          <Link key={p.id} to={`/detail/${p.id}`}>
+            <li>{p.name_ja}</li>
           </Link>
         ))}
       </ul>
