@@ -25,3 +25,8 @@ dist-ssr
 *.sw?
 
 data-import/
+
+# Secrets
+.env
+.env.*
+!.env.example
