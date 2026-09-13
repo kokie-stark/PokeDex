@@ -5,19 +5,21 @@ import { memo, Suspense } from 'react';
 import { Link, useParams } from 'react-router';
 
 type DetailPageContentProps = {
-  name: string;
+  id: number;
 };
 
-const DetailPageContentComponent = ({ name }: DetailPageContentProps) => {
+const DetailPageContentComponent = (props: DetailPageContentProps) => {
+  const { id } = props;
+
   const { data } = useSuspenseQuery({
-    queryFn: () => fetchPokemonDetail(name),
-    queryKey: ['details', name],
+    queryFn: () => fetchPokemonDetail(id),
+    queryKey: ['details', id],
   });
 
   return (
     <div>
-      <h3>名前: {name}</h3>
-      <img src={data?.sprites.front_default}></img>
+      <h3>名前: {data.name_ja}</h3>
+      {data.image_url && <img src={data.image_url} alt={data.name_ja}></img>}
       <Link to={ROUTES.HOME}>ホームへ</Link>
     </div>
   );
@@ -26,15 +28,15 @@ const DetailPageContentComponent = ({ name }: DetailPageContentProps) => {
 const DetailPageContent = memo(DetailPageContentComponent);
 
 const DetailPageComponent = () => {
-  const { id: name } = useParams();
+  const { id } = useParams();
 
-  if (!name) {
+  if (!id || Number.isNaN(Number(id))) {
     return <div>不正なURLです</div>;
   }
 
   return (
     <Suspense fallback={<h1>loading..</h1>}>
-      <DetailPageContent name={name} />
+      <DetailPageContent id={Number(id)} />
     </Suspense>
   );
 };
