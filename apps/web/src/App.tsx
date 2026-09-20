@@ -1,3 +1,4 @@
+import { AuthProvider } from '@/Auth';
 import { router } from '@/Routes/routes';
 import { theme } from '@pokedex/ui';
 import { CssBaseline, ThemeProvider } from '@mui/material';
@@ -10,7 +11,9 @@ const App = () => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </QueryClientProvider>
   </ThemeProvider>
 );

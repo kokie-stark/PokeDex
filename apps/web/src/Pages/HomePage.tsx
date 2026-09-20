@@ -1,8 +1,12 @@
+import { supabase } from '@/Api';
+import { useAuth } from '@/Auth';
 import { ROUTES } from '@/Consts';
 import { memo } from 'react';
 import { Link } from 'react-router';
 
 const HomePageComponent = () => {
+  const { session } = useAuth();
+
   return (
     <div>
       <h1>HomePage</h1>
@@ -21,6 +25,15 @@ const HomePageComponent = () => {
         </ul>
         <ul>
           <Link to={'/detail/3'}>詳細3</Link>
+        </ul>
+        <ul>
+          {session ? (
+            <button type="button" onClick={() => supabase.auth.signOut()}>
+              ログアウト
+            </button>
+          ) : (
+            <Link to={ROUTES.LOGIN}>ログイン</Link>
+          )}
         </ul>
       </li>
     </div>
