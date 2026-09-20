@@ -26,3 +26,5 @@ export { CardActionArea } from './CardActionArea';
 export type { CardActionAreaProps } from './CardActionArea';
 export { Chip } from './Chip';
 export type { ChipProps } from './Chip';
+export { LinearProgress } from './LinearProgress';
+export type { LinearProgressProps } from './LinearProgress';

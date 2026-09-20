@@ -15,6 +15,7 @@ export {
   CardContent,
   CardActionArea,
   Chip,
+  LinearProgress,
 } from './components';
 export type {
   ButtonProps,
@@ -31,4 +32,5 @@ export type {
   CardContentProps,
   CardActionAreaProps,
   ChipProps,
+  LinearProgressProps,
 } from './components';

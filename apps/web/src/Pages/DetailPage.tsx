@@ -7,6 +7,7 @@ import {
   Box,
   Chip,
   IconButton,
+  LinearProgress,
   Stack,
   Typography,
   mergeCSS,
@@ -20,7 +21,12 @@ type DetailPageContentProps = {
   id: number;
 };
 
+// 種族値の理論上の最大値。バーの長さの基準に使う。
+const MAX_BASE_STAT = 255;
+
 const headerClassName = mergeCSS(styles.display('flex'), styles.alignItems('center'), styles.gap(3));
+const rowClassName = mergeCSS(styles.display('flex'), styles.alignItems('center'), styles.gap(1));
+const spaceBetweenClassName = mergeCSS(styles.display('flex'), styles.justifyContent('space-between'));
 
 const DetailPageContentComponent = (props: DetailPageContentProps) => {
   const { id } = props;
@@ -42,7 +48,7 @@ const DetailPageContentComponent = (props: DetailPageContentProps) => {
           <Typography variant="caption" color="text.secondary">
             #{String(data.id).padStart(3, '0')}
           </Typography>
-          <Box className={mergeCSS(styles.display('flex'), styles.alignItems('center'), styles.gap(1))}>
+          <Box className={rowClassName}>
             <Typography variant="h4">{data.name}</Typography>
             {isLoggedIn && (
               <IconButton onClick={() => toggleFavorite(id)} aria-label="お気に入り切り替え">
@@ -61,7 +67,40 @@ const DetailPageContentComponent = (props: DetailPageContentProps) => {
         </Box>
       </Box>
 
-      <Link to={ROUTES.HOME}>ホームへ</Link>
+      <Box style={{ marginTop: 24 }}>
+        <Typography variant="h6">特性</Typography>
+        <Stack direction="row" spacing={1} style={{ marginTop: 8 }}>
+          {data.abilities.map(ability => (
+            <Chip
+              key={ability.name}
+              label={ability.isHidden ? `${ability.name}（隠れ特性）` : ability.name}
+              variant={ability.isHidden ? 'outlined' : 'filled'}
+            />
+          ))}
+        </Stack>
+      </Box>
+
+      <Box style={{ marginTop: 24, maxWidth: 400 }}>
+        <Typography variant="h6">種族値</Typography>
+        <Stack spacing={1} style={{ marginTop: 8 }}>
+          {data.stats.map(stat => (
+            <Box key={stat.name}>
+              <Box className={spaceBetweenClassName}>
+                <Typography variant="body2">{stat.name}</Typography>
+                <Typography variant="body2">{stat.value}</Typography>
+              </Box>
+              <LinearProgress
+                variant="determinate"
+                value={Math.min(100, (stat.value / MAX_BASE_STAT) * 100)}
+              />
+            </Box>
+          ))}
+        </Stack>
+      </Box>
+
+      <Link to={ROUTES.HOME} style={{ display: 'block', marginTop: 24 }}>
+        ホームへ
+      </Link>
     </Box>
   );
 };
