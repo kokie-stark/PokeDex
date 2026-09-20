@@ -6,3 +6,7 @@ export { Stack } from './Stack';
 export type { StackProps } from './Stack';
 export { Typography } from './Typography';
 export type { TypographyProps } from './Typography';
+export { Drawer } from './Drawer';
+export type { DrawerProps } from './Drawer';
+export { IconButton } from './IconButton';
+export type { IconButtonProps } from './IconButton';

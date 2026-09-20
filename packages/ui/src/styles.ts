@@ -29,5 +29,7 @@ export const styles = {
   position: styleFn('position'),
   overflow: styleFn('overflow'),
   textAlign: styleFn('textAlign'),
+  zIndex: styleFn('zIndex'),
+  backgroundColor: styleFn('backgroundColor'),
   // 必要なら他のショートハンドもここに追加
 } as const;
