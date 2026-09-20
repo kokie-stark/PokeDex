@@ -4,6 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "transform": "node src/transform.mjs"
+    "transform": "node src/transform.mjs",
+    "upload-images": "node src/upload-images.mjs"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^7.14.0"
   }
 }
