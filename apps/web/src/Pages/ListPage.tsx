@@ -1,5 +1,6 @@
 import { fetchPokemonList } from '@/Api';
 import { ROUTES } from '@/Consts';
+import { useFavorites } from '@/Hooks';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { memo, Suspense, useCallback, useMemo, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -27,6 +28,8 @@ const ListPageContentComponent = () => {
 
   const totalPages = useMemo(() => Math.ceil(data.count / limit), [data.count, limit]);
 
+  const { isLoggedIn, isFavorite, toggleFavorite } = useFavorites();
+
   return (
     <div>
       <h1>ListPage</h1>
@@ -40,9 +43,14 @@ const ListPageContentComponent = () => {
       </p>
       <ul>
         {data.results.map(p => (
-          <Link key={p.id} to={`/detail/${p.id}`}>
-            <li>{p.name}</li>
-          </Link>
+          <li key={p.id}>
+            <Link to={`/detail/${p.id}`}>{p.name}</Link>
+            {isLoggedIn && (
+              <button type="button" onClick={() => toggleFavorite(p.id)}>
+                {isFavorite(p.id) ? '★' : '☆'}
+              </button>
+            )}
+          </li>
         ))}
       </ul>
       <li>

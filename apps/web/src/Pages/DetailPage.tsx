@@ -1,5 +1,6 @@
 import { fetchPokemonDetail } from '@/Api';
 import { ROUTES } from '@/Consts';
+import { useFavorites } from '@/Hooks';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { memo, Suspense } from 'react';
 import { Link, useParams } from 'react-router';
@@ -16,10 +17,17 @@ const DetailPageContentComponent = (props: DetailPageContentProps) => {
     queryKey: ['details', id],
   });
 
+  const { isLoggedIn, isFavorite, toggleFavorite } = useFavorites();
+
   return (
     <div>
       <h3>名前: {data.name}</h3>
       {data.imageUrl && <img src={data.imageUrl} alt={data.name}></img>}
+      {isLoggedIn && (
+        <button type="button" onClick={() => toggleFavorite(id)}>
+          {isFavorite(id) ? '★ お気に入り解除' : '☆ お気に入りに追加'}
+        </button>
+      )}
       <Link to={ROUTES.HOME}>ホームへ</Link>
     </div>
   );

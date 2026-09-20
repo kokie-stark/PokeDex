@@ -35,6 +35,11 @@ const HomePageComponent = () => {
             <Link to={ROUTES.LOGIN}>ログイン</Link>
           )}
         </ul>
+        {session && (
+          <ul>
+            <Link to={ROUTES.FAVORITES}>お気に入り一覧</Link>
+          </ul>
+        )}
       </li>
     </div>
   );

@@ -1,5 +1,6 @@
 import { ROUTES } from '@/Consts';
 import DetailPage from '@/Pages/DetailPage';
+import FavoritesPage from '@/Pages/FavoritesPage';
 import HomePage from '@/Pages/HomePage';
 import ListPage from '@/Pages/ListPage';
 import LoginPage from '@/Pages/LoginPage';
@@ -21,5 +22,9 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.LOGIN,
     element: <LoginPage />,
+  },
+  {
+    path: ROUTES.FAVORITES,
+    element: <FavoritesPage />,
   },
 ]);
