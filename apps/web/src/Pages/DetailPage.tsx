@@ -1,6 +1,6 @@
 import { fetchPokemonDetail } from '@/Api';
 import { ROUTES } from '@/Consts';
-import { useFavorites } from '@/Hooks';
+import { useFavorites, useIsMobile } from '@/Hooks';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import {
@@ -24,7 +24,6 @@ type DetailPageContentProps = {
 // 種族値の理論上の最大値。バーの長さの基準に使う。
 const MAX_BASE_STAT = 255;
 
-const headerClassName = mergeCSS(styles.display('flex'), styles.alignItems('center'), styles.gap(3));
 const rowClassName = mergeCSS(styles.display('flex'), styles.alignItems('center'), styles.gap(1));
 const spaceBetweenClassName = mergeCSS(styles.display('flex'), styles.justifyContent('space-between'));
 
@@ -37,6 +36,13 @@ const DetailPageContentComponent = (props: DetailPageContentProps) => {
   });
 
   const { isLoggedIn, isFavorite, toggleFavorite } = useFavorites();
+  const isMobile = useIsMobile();
+  const headerClassName = mergeCSS(
+    styles.display('flex'),
+    styles.flexDirection(isMobile ? 'column' : 'row'),
+    styles.alignItems(isMobile ? 'flex-start' : 'center'),
+    styles.gap(3),
+  );
 
   return (
     <Box style={{ padding: 16 }}>

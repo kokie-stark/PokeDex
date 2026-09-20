@@ -1,6 +1,7 @@
 import { useAuth } from '@/Auth';
 import { HEADER_HEIGHT } from '@/Components/Header';
 import { ROUTES } from '@/Consts';
+import { useIsMobile } from '@/Hooks';
 import { Button, Drawer, Stack, styles } from '@pokedex/ui';
 import { memo } from 'react';
 import { Link } from 'react-router';
@@ -15,19 +16,22 @@ type SideMenuProps = {
 const SideMenuComponent = (props: SideMenuProps) => {
   const { open, onClose } = props;
   const { session } = useAuth();
+  const isMobile = useIsMobile();
 
   return (
     <Drawer
-      variant="persistent"
+      variant={isMobile ? 'temporary' : 'persistent'}
       open={open}
       onClose={onClose}
       slotProps={{
         paper: {
-          style: {
-            width: DRAWER_WIDTH,
-            top: HEADER_HEIGHT,
-            height: `calc(100% - ${HEADER_HEIGHT}px)`,
-          },
+          style: isMobile
+            ? { width: DRAWER_WIDTH }
+            : {
+                width: DRAWER_WIDTH,
+                top: HEADER_HEIGHT,
+                height: `calc(100% - ${HEADER_HEIGHT}px)`,
+              },
         },
       }}
     >
