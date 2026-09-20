@@ -33,3 +33,6 @@ export const styles = {
   backgroundColor: styleFn('backgroundColor'),
   // 必要なら他のショートハンドもここに追加
 } as const;
+
+export const mergeCSS = (...classNames: (string | false | null | undefined)[]): string =>
+  classNames.filter(Boolean).join(' ');

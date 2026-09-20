@@ -1,5 +1,5 @@
 export { theme } from './theme';
-export { styles } from './styles';
+export { styles, mergeCSS } from './styles';
 export { Button, Box, Stack, Typography, Drawer, IconButton } from './components';
 export type {
   ButtonProps,
