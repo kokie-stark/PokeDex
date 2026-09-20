@@ -24,3 +24,5 @@ export { CardContent } from './CardContent';
 export type { CardContentProps } from './CardContent';
 export { CardActionArea } from './CardActionArea';
 export type { CardActionAreaProps } from './CardActionArea';
+export { Chip } from './Chip';
+export type { ChipProps } from './Chip';

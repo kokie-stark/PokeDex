@@ -14,6 +14,7 @@ export {
   CardMedia,
   CardContent,
   CardActionArea,
+  Chip,
 } from './components';
 export type {
   ButtonProps,
@@ -29,4 +30,5 @@ export type {
   CardMediaProps,
   CardContentProps,
   CardActionAreaProps,
+  ChipProps,
 } from './components';
