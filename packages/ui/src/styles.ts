@@ -36,3 +36,5 @@ export const styles = {
 
 export const mergeCSS = (...classNames: (string | false | null | undefined)[]): string =>
   classNames.filter(Boolean).join(' ');
+
+export const raw = css;

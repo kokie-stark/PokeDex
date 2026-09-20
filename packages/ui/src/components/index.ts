@@ -28,3 +28,5 @@ export { Chip } from './Chip';
 export type { ChipProps } from './Chip';
 export { LinearProgress } from './LinearProgress';
 export type { LinearProgressProps } from './LinearProgress';
+export { MobileStepper } from './MobileStepper';
+export type { MobileStepperProps } from './MobileStepper';
