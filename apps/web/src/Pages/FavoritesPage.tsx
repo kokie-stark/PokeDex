@@ -1,5 +1,5 @@
 import { useAuth } from '@/Auth';
-import { PokemonCard, PokemonCardSkeleton } from '@/Components';
+import { PokemonCardGrid, PokemonCardSkeleton } from '@/Components';
 import { ROUTES } from '@/Consts';
 import { useFavorites } from '@/Hooks';
 import { Box, Button, Typography, mergeCSS, styles } from '@pokedex/ui';
@@ -36,10 +36,8 @@ const FavoritesPageComponent = () => {
           </Button>
         </Box>
       ) : (
-        <Box className={gridClassName} style={{ marginTop: 16 }}>
-          {favorites.map(p => (
-            <PokemonCard key={p.id} id={p.id} name={p.name} imageUrl={p.imageUrl} />
-          ))}
+        <Box style={{ marginTop: 16 }}>
+          <PokemonCardGrid pokemons={favorites} />
         </Box>
       )}
     </Box>

@@ -1,5 +1,5 @@
 import { fetchPokemonList } from '@/Api';
-import { PokemonCard, PokemonCardSkeleton } from '@/Components';
+import { PokemonCardGrid, PokemonCardSkeleton } from '@/Components';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import { Box, MenuItem, Pagination, Select, Typography, mergeCSS, styles } from '@pokedex/ui';
 import { useSuspenseQuery } from '@tanstack/react-query';
@@ -51,11 +51,7 @@ const ListPageContentComponent = () => {
         </Typography>
       </Box>
 
-      <Box className={gridClassName}>
-        {data.results.map(p => (
-          <PokemonCard key={p.id} id={p.id} name={p.name} imageUrl={p.imageUrl} />
-        ))}
-      </Box>
+      <PokemonCardGrid pokemons={data.results} />
 
       <Box className={controlsClassName} style={{ margin: '16px 0', justifyContent: 'center' }}>
         <Pagination count={totalPages} page={page} onChange={handlePageChange} color="primary" />
