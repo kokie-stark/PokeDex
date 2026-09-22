@@ -30,3 +30,5 @@ export { LinearProgress } from './LinearProgress';
 export type { LinearProgressProps } from './LinearProgress';
 export { MobileStepper } from './MobileStepper';
 export type { MobileStepperProps } from './MobileStepper';
+export { Skeleton } from './Skeleton';
+export type { SkeletonProps } from './Skeleton';

@@ -17,6 +17,7 @@ export {
   Chip,
   LinearProgress,
   MobileStepper,
+  Skeleton,
 } from './components';
 export type {
   ButtonProps,
@@ -35,4 +36,5 @@ export type {
   ChipProps,
   LinearProgressProps,
   MobileStepperProps,
+  SkeletonProps,
 } from './components';
