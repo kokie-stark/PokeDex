@@ -14,13 +14,11 @@ export const router = createBrowserRouter([
       { path: ROUTES.HOME, element: <HomePage /> },
       { path: ROUTES.LIST, element: <ListPage /> },
       { path: ROUTES.DETAIL, element: <DetailPage /> },
+      { path: ROUTES.FAVORITES, element: <FavoritesPage /> },
     ],
   },
   {
     element: <PlainLayout />,
-    children: [
-      { path: ROUTES.LOGIN, element: <LoginPage /> },
-      { path: ROUTES.FAVORITES, element: <FavoritesPage /> },
-    ],
+    children: [{ path: ROUTES.LOGIN, element: <LoginPage /> }],
   },
 ]);

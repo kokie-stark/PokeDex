@@ -1,26 +1,11 @@
 import { fetchPokemonList } from '@/Api';
-import { useFavorites } from '@/Hooks';
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { PokemonCard } from '@/Components';
 import type { SelectChangeEvent } from '@mui/material/Select';
-import {
-  Box,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  IconButton,
-  MenuItem,
-  Pagination,
-  Select,
-  Typography,
-  mergeCSS,
-  styles,
-} from '@pokedex/ui';
+import { Box, MenuItem, Pagination, Select, Typography, mergeCSS, styles } from '@pokedex/ui';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { memo, Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Link, useSearchParams } from 'react-router';
+import { useSearchParams } from 'react-router';
 
 const gridClassName = mergeCSS(styles.display('flex'), styles.flexWrap('wrap'), styles.gap(2));
 
@@ -37,8 +22,6 @@ const ListPageContentComponent = () => {
   });
 
   const totalPages = Math.max(1, Math.ceil(data.count / limit));
-
-  const { isLoggedIn, isFavorite, toggleFavorite } = useFavorites();
 
   const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     const next = new URLSearchParams(searchParams);
@@ -70,33 +53,7 @@ const ListPageContentComponent = () => {
 
       <Box className={gridClassName}>
         {data.results.map(p => (
-          <Card key={p.id} style={{ width: 160, position: 'relative' }}>
-            <CardActionArea component={Link} to={`/detail/${p.id}`}>
-              {p.imageUrl && (
-                <CardMedia
-                  component="img"
-                  image={p.imageUrl}
-                  alt={p.name}
-                  style={{ height: 120, objectFit: 'contain', padding: 8 }}
-                />
-              )}
-              <CardContent>
-                <Typography variant="caption" color="text.secondary">
-                  #{String(p.id).padStart(3, '0')}
-                </Typography>
-                <Typography variant="body1">{p.name}</Typography>
-              </CardContent>
-            </CardActionArea>
-            {isLoggedIn && (
-              <IconButton
-                onClick={() => toggleFavorite(p.id)}
-                style={{ position: 'absolute', top: 4, right: 4 }}
-                aria-label="お気に入り切り替え"
-              >
-                {isFavorite(p.id) ? <StarIcon color="warning" /> : <StarBorderIcon />}
-              </IconButton>
-            )}
-          </Card>
+          <PokemonCard key={p.id} id={p.id} name={p.name} imageUrl={p.imageUrl} />
         ))}
       </Box>
 
