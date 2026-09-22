@@ -6,6 +6,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import {
   Box,
   Chip,
+  CircularProgress,
   IconButton,
   LinearProgress,
   Stack,
@@ -121,7 +122,20 @@ const DetailPageComponent = () => {
   }
 
   return (
-    <Suspense fallback={<h1>loading..</h1>}>
+    <Suspense
+      fallback={
+        <Box
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '50vh',
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      }
+    >
       <DetailPageContent id={Number(id)} />
     </Suspense>
   );
