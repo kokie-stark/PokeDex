@@ -1,6 +1,6 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": ["pokedex", "pokeapi"],
-  "ignorePaths": ["node_modules", "**/dist", "pnpm-lock.yaml"]
+  "words": ["pokedex", "pokeapi", "supabase", "pokemons", "flexbox"],
+  "ignorePaths": ["node_modules", "**/dist", "pnpm-lock.yaml", "data-import"]
 }
