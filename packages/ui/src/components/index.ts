@@ -36,3 +36,5 @@ export { TextField } from './TextField';
 export type { TextFieldProps } from './TextField';
 export { Alert } from './Alert';
 export type { AlertProps } from './Alert';
+export { CircularProgress } from './CircularProgress';
+export type { CircularProgressProps } from './CircularProgress';

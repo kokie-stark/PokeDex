@@ -20,6 +20,7 @@ export {
   Skeleton,
   TextField,
   Alert,
+  CircularProgress,
 } from './components';
 export type {
   ButtonProps,
@@ -41,4 +42,5 @@ export type {
   SkeletonProps,
   TextFieldProps,
   AlertProps,
+  CircularProgressProps,
 } from './components';
