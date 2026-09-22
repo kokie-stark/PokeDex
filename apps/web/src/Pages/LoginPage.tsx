@@ -1,6 +1,7 @@
 import { supabase } from '@/Api';
 import { useAuth } from '@/Auth';
 import { ROUTES } from '@/Consts';
+import { Alert, Box, Button, Card, CardContent, Stack, TextField, Typography } from '@pokedex/ui';
 import { memo, useState, type FormEvent } from 'react';
 import { Navigate, useNavigate } from 'react-router';
 
@@ -46,40 +47,56 @@ const LoginPageComponent = () => {
   };
 
   return (
-    <div>
-      <h1>{mode === 'signIn' ? 'ログイン' : '新規登録'}</h1>
-      <button type="button" onClick={() => setMode(mode === 'signIn' ? 'signUp' : 'signIn')}>
-        {mode === 'signIn' ? '新規登録はこちら' : 'ログインはこちら'}
-      </button>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            メールアドレス
-            <input
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            パスワード
-            <input
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-            />
-          </label>
-        </div>
-        {errorMessage && <p>{errorMessage}</p>}
-        <button type="submit" disabled={isSubmitting}>
-          {mode === 'signIn' ? 'ログイン' : '登録する'}
-        </button>
-      </form>
-    </div>
+    <Box
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        padding: 16,
+      }}
+    >
+      <Card style={{ width: '100%', maxWidth: 360 }}>
+        <CardContent style={{ padding: 24 }}>
+          <Typography variant="h5" style={{ marginBottom: 16, textAlign: 'center' }}>
+            {mode === 'signIn' ? 'ログイン' : '新規登録'}
+          </Typography>
+
+          <form onSubmit={handleSubmit}>
+            <Stack spacing={2}>
+              <TextField
+                type="email"
+                label="メールアドレス"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+                fullWidth
+              />
+              <TextField
+                type="password"
+                label="パスワード"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                fullWidth
+              />
+              {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+              <Button type="submit" variant="contained" disabled={isSubmitting} fullWidth>
+                {mode === 'signIn' ? 'ログイン' : '登録する'}
+              </Button>
+              <Button
+                type="button"
+                variant="text"
+                onClick={() => setMode(mode === 'signIn' ? 'signUp' : 'signIn')}
+                fullWidth
+              >
+                {mode === 'signIn' ? '新規登録はこちら' : 'ログインはこちら'}
+              </Button>
+            </Stack>
+          </form>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 
