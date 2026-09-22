@@ -1,5 +1,5 @@
 import { useAuth } from '@/Auth';
-import { PokemonCard } from '@/Components';
+import { PokemonCard, PokemonCardSkeleton } from '@/Components';
 import { ROUTES } from '@/Consts';
 import { useFavorites } from '@/Hooks';
 import { Box, Button, Typography, mergeCSS, styles } from '@pokedex/ui';
@@ -9,10 +9,10 @@ import { Link, Navigate } from 'react-router';
 const gridClassName = mergeCSS(styles.display('flex'), styles.flexWrap('wrap'), styles.gap(2));
 
 const FavoritesPageComponent = () => {
-  const { session, isLoading } = useAuth();
-  const { favorites } = useFavorites();
+  const { session, isLoading: isAuthLoading } = useAuth();
+  const { favorites, isLoading: isFavoritesLoading } = useFavorites();
 
-  if (!isLoading && !session) {
+  if (!isAuthLoading && !session) {
     return <Navigate to={ROUTES.LOGIN} />;
   }
 
@@ -20,7 +20,13 @@ const FavoritesPageComponent = () => {
     <Box style={{ padding: 16 }}>
       <Typography variant="h4">お気に入り</Typography>
 
-      {favorites.length === 0 ? (
+      {isFavoritesLoading ? (
+        <Box className={gridClassName} style={{ marginTop: 16 }}>
+          {Array.from({ length: 4 }).map((_, i) => (
+            <PokemonCardSkeleton key={i} />
+          ))}
+        </Box>
+      ) : favorites.length === 0 ? (
         <Box style={{ marginTop: 24, textAlign: 'center' }}>
           <Typography color="text.secondary" style={{ marginBottom: 16 }}>
             お気に入りはまだありません

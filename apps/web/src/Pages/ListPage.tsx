@@ -1,5 +1,5 @@
 import { fetchPokemonList } from '@/Api';
-import { PokemonCard } from '@/Components';
+import { PokemonCard, PokemonCardSkeleton } from '@/Components';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import { Box, MenuItem, Pagination, Select, Typography, mergeCSS, styles } from '@pokedex/ui';
 import { useSuspenseQuery } from '@tanstack/react-query';
@@ -66,13 +66,29 @@ const ListPageContentComponent = () => {
 
 const ListPageContent = memo(ListPageContentComponent);
 
+const ListPageSkeleton = () => {
+  const [searchParams] = useSearchParams();
+  const limit = Number(searchParams.get('limit') ?? '20');
+
+  return (
+    <Box style={{ padding: 16 }}>
+      <Typography variant="h4">ポケモン一覧</Typography>
+      <Box className={gridClassName} style={{ marginTop: 16 }}>
+        {Array.from({ length: limit }).map((_, i) => (
+          <PokemonCardSkeleton key={i} />
+        ))}
+      </Box>
+    </Box>
+  );
+};
+
 const ListPageComponent = () => (
   <ErrorBoundary
     fallbackRender={({ error }) => (
       <div>Error: {error instanceof Error ? error.message : 'unknown error'}</div>
     )}
   >
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<ListPageSkeleton />}>
       <ListPageContent />
     </Suspense>
   </ErrorBoundary>

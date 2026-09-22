@@ -7,7 +7,7 @@ const useFavorites = () => {
   const accessToken = session?.access_token;
   const queryClient = useQueryClient();
 
-  const { data: favorites } = useQuery({
+  const { data: favorites, isLoading } = useQuery({
     queryKey: ['favorites', accessToken],
     queryFn: () => fetchFavorites(accessToken as string),
     enabled: !!accessToken,
@@ -41,6 +41,7 @@ const useFavorites = () => {
 
   return {
     isLoggedIn: !!accessToken,
+    isLoading,
     favorites: favorites ?? [],
     isFavorite,
     toggleFavorite,

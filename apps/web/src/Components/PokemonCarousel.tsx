@@ -1,7 +1,7 @@
 import { fetchPokemonDetail } from '@/Api';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Box, CardActionArea, Chip, IconButton, MobileStepper, Typography, styles } from '@pokedex/ui';
+import { Box, CardActionArea, Chip, IconButton, MobileStepper, Skeleton, Typography, styles } from '@pokedex/ui';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { memo, Suspense, useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -100,6 +100,13 @@ const PokemonCarouselContentComponent = (props: PokemonCarouselProps) => {
 
 const PokemonCarouselContent = memo(PokemonCarouselContentComponent);
 
+const PokemonCarouselSkeleton = () => (
+  <Box style={{ maxWidth: 480, margin: '0 auto', textAlign: 'center' }}>
+    <Skeleton variant="rectangular" width={160} height={160} style={{ margin: '0 auto' }} />
+    <Skeleton variant="text" width="40%" style={{ margin: '8px auto 0' }} />
+  </Box>
+);
+
 const PokemonCarouselComponent = (props: PokemonCarouselProps) => (
   <ErrorBoundary
     fallbackRender={({ error }) => (
@@ -108,7 +115,7 @@ const PokemonCarouselComponent = (props: PokemonCarouselProps) => (
       </Typography>
     )}
   >
-    <Suspense fallback={<Typography>Loading...</Typography>}>
+    <Suspense fallback={<PokemonCarouselSkeleton />}>
       <PokemonCarouselContent {...props} />
     </Suspense>
   </ErrorBoundary>
