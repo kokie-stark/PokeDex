@@ -1,7 +1,5 @@
-import { useFavorites } from '@/Hooks';
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { Card, CardActionArea, CardContent, CardMedia, IconButton, Typography } from '@pokedex/ui';
+import { FavoriteButton } from '@/Components';
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@pokedex/ui';
 import { memo } from 'react';
 import { Link } from 'react-router';
 
@@ -13,7 +11,6 @@ type PokemonCardProps = {
 
 const PokemonCardComponent = (props: PokemonCardProps) => {
   const { id, name, imageUrl } = props;
-  const { isLoggedIn, isFavorite, toggleFavorite } = useFavorites();
 
   return (
     <Card style={{ width: 160, position: 'relative' }}>
@@ -33,15 +30,7 @@ const PokemonCardComponent = (props: PokemonCardProps) => {
           <Typography variant="body1">{name}</Typography>
         </CardContent>
       </CardActionArea>
-      {isLoggedIn && (
-        <IconButton
-          onClick={() => toggleFavorite(id)}
-          style={{ position: 'absolute', top: 4, right: 4 }}
-          aria-label="お気に入り切り替え"
-        >
-          {isFavorite(id) ? <StarIcon color="warning" /> : <StarBorderIcon />}
-        </IconButton>
-      )}
+      <FavoriteButton pokemonId={id} style={{ position: 'absolute', top: 4, right: 4 }} />
     </Card>
   );
 };

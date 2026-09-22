@@ -1,13 +1,11 @@
 import { fetchPokemonDetail } from '@/Api';
+import { FavoriteButton } from '@/Components';
 import { ROUTES } from '@/Consts';
-import { useFavorites, useIsMobile } from '@/Hooks';
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { useIsMobile } from '@/Hooks';
 import {
   Box,
   Chip,
   CircularProgress,
-  IconButton,
   LinearProgress,
   Stack,
   Typography,
@@ -36,7 +34,6 @@ const DetailPageContentComponent = (props: DetailPageContentProps) => {
     queryKey: ['details', id],
   });
 
-  const { isLoggedIn, isFavorite, toggleFavorite } = useFavorites();
   const isMobile = useIsMobile();
   const headerClassName = mergeCSS(
     styles.display('flex'),
@@ -57,11 +54,7 @@ const DetailPageContentComponent = (props: DetailPageContentProps) => {
           </Typography>
           <Box className={rowClassName}>
             <Typography variant="h4">{data.name}</Typography>
-            {isLoggedIn && (
-              <IconButton onClick={() => toggleFavorite(id)} aria-label="お気に入り切り替え">
-                {isFavorite(id) ? <StarIcon color="warning" /> : <StarBorderIcon />}
-              </IconButton>
-            )}
+            <FavoriteButton pokemonId={id} />
           </Box>
           <Stack direction="row" spacing={1} style={{ marginTop: 8 }}>
             {data.types.map(type => (

@@ -1,3 +1,4 @@
+export { default as FavoriteButton } from './FavoriteButton';
 export { default as Header } from './Header';
 export { default as PokemonCard } from './PokemonCard';
 export { default as PokemonCardSkeleton } from './PokemonCardSkeleton';
