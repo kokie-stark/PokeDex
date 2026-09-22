@@ -1,7 +1,7 @@
 import { useAuth } from '@/Auth';
 import { PokemonCarousel } from '@/Components';
 import { ROUTES } from '@/Consts';
-import { Box, Card, CardActionArea, Typography, mergeCSS, raw, styles } from '@pokedex/ui';
+import { Box, Card, CardActionArea, Typography, mergeCSS, raw, styles, theme } from '@pokedex/ui';
 import { memo, useState } from 'react';
 import { Link } from 'react-router';
 
@@ -26,6 +26,12 @@ const hoverCardClassName = raw({
   },
 });
 
+const quickAccessCardStyle = {
+  width: 160,
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.primary.contrastText,
+};
+
 const HomePageComponent = () => {
   const { session } = useAuth();
   const [featuredIds] = useState(() => getRandomIds(FEATURED_COUNT, MAX_POKEMON_ID));
@@ -39,29 +45,29 @@ const HomePageComponent = () => {
       <PokemonCarousel ids={featuredIds} />
 
       <Box className={quickAccessGridClassName} style={{ marginTop: 32 }}>
-        <Card className={hoverCardClassName} style={{ width: 160 }}>
+        <Card className={hoverCardClassName} style={quickAccessCardStyle}>
           <CardActionArea component={Link} to={ROUTES.LIST} style={{ padding: 24, textAlign: 'center' }}>
-            <Typography variant="h6">一覧を見る</Typography>
+            <Typography variant="h6" color="inherit">一覧を見る</Typography>
           </CardActionArea>
         </Card>
         {session ? (
-          <Card className={hoverCardClassName} style={{ width: 160 }}>
+          <Card className={hoverCardClassName} style={quickAccessCardStyle}>
             <CardActionArea
               component={Link}
               to={ROUTES.FAVORITES}
               style={{ padding: 24, textAlign: 'center' }}
             >
-              <Typography variant="h6">お気に入り</Typography>
+              <Typography variant="h6" color="inherit">お気に入り</Typography>
             </CardActionArea>
           </Card>
         ) : (
-          <Card className={hoverCardClassName} style={{ width: 160 }}>
+          <Card className={hoverCardClassName} style={quickAccessCardStyle}>
             <CardActionArea
               component={Link}
               to={ROUTES.LOGIN}
               style={{ padding: 24, textAlign: 'center' }}
             >
-              <Typography variant="h6">ログイン</Typography>
+              <Typography variant="h6" color="inherit">ログイン</Typography>
             </CardActionArea>
           </Card>
         )}

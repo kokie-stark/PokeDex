@@ -36,14 +36,14 @@ const SideMenuComponent = (props: SideMenuProps) => {
       }}
     >
       <Stack component="nav" spacing={1} className={styles.padding(2)}>
-        <Button component={Link} to={ROUTES.HOME} onClick={onClose}>
+        <Button component={Link} to={ROUTES.HOME} onClick={onClose} variant="contained">
           ホーム
         </Button>
-        <Button component={Link} to={ROUTES.LIST} onClick={onClose}>
+        <Button component={Link} to={ROUTES.LIST} onClick={onClose} variant="contained">
           一覧
         </Button>
         {session && (
-          <Button component={Link} to={ROUTES.FAVORITES} onClick={onClose}>
+          <Button component={Link} to={ROUTES.FAVORITES} onClick={onClose} variant="contained">
             お気に入り
           </Button>
         )}
