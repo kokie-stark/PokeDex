@@ -2,7 +2,8 @@ import { fetchPokemonDetail } from '@/Api';
 import { FavoriteButton, StatBar } from '@/Components';
 import { ROUTES } from '@/Consts';
 import { useIsMobile } from '@/Hooks';
-import { Box, Chip, CircularProgress, Stack, Typography, mergeCSS, styles } from '@pokedex/ui';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Box, Button, Chip, CircularProgress, Stack, Typography, mergeCSS, styles } from '@pokedex/ui';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { memo, Suspense } from 'react';
 import { Link, useParams } from 'react-router';
@@ -79,9 +80,14 @@ const DetailPageContentComponent = (props: DetailPageContentProps) => {
         </Stack>
       </Box>
 
-      <Link to={ROUTES.HOME} style={{ display: 'block', marginTop: 24 }}>
+      <Button
+        component={Link}
+        to={ROUTES.HOME}
+        startIcon={<ArrowBackIcon />}
+        style={{ marginTop: 24 }}
+      >
         ホームへ
-      </Link>
+      </Button>
     </Box>
   );
 };
