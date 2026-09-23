@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "pnpm -r --parallel --if-present run dev",
     "build": "pnpm -r build",
+    "deploy": "pnpm --filter @pokedex/web build && firebase deploy --only hosting --config apps/web/firebase.json",
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx,css,md}\"",
     "spell": "cspell \"**/*.{ts,tsx,md,json}\""
