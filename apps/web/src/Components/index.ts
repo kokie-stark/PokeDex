@@ -5,4 +5,5 @@ export { default as PokemonCardGrid } from './PokemonCardGrid';
 export { default as PokemonCardSkeleton } from './PokemonCardSkeleton';
 export { default as PokemonCarousel } from './PokemonCarousel';
 export { default as SideMenu } from './SideMenu';
+export { default as SplashScreen } from './SplashScreen';
 export { default as StatBar } from './StatBar';
