@@ -1,14 +1,20 @@
 import { supabase } from '@/Api';
 import { useAuth } from '@/Auth';
 import { ROUTES } from '@/Consts';
+import CatchingPokemonIcon from '@mui/icons-material/CatchingPokemon';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Button, IconButton, Typography, mergeCSS, styles, theme } from '@pokedex/ui';
+import { motion } from 'motion/react';
 import { memo } from 'react';
 import { Link } from 'react-router';
 
 export const HEADER_HEIGHT = 64;
 
-const titleGroupClassName = mergeCSS(styles.display('flex'), styles.alignItems('center'));
+const titleGroupClassName = mergeCSS(
+  styles.display('flex'),
+  styles.alignItems('center'),
+  styles.gap(0.5),
+);
 
 type HeaderProps = {
   onMenuClick: () => void;
@@ -27,7 +33,6 @@ const HeaderComponent = (props: HeaderProps) => {
         styles.alignItems('center'),
         styles.padding('0 16px'),
         styles.height(`${HEADER_HEIGHT}px`),
-        styles.backgroundColor(theme.palette.primary.main),
       )}
       style={{
         position: 'fixed',
@@ -36,21 +41,28 @@ const HeaderComponent = (props: HeaderProps) => {
         right: 0,
         zIndex: 1100,
         color: theme.palette.primary.contrastText,
+        background: `linear-gradient(135deg, ${theme.palette.primary.light}, ${theme.palette.primary.dark})`,
       }}
     >
       <Box className={titleGroupClassName}>
         <IconButton onClick={onMenuClick} aria-label="メニューの開閉" color="inherit">
           <MenuIcon />
         </IconButton>
-        <Typography
-          variant="h6"
+        <Box
           component={Link}
           to={ROUTES.HOME}
-          color="inherit"
+          className={mergeCSS(styles.display('flex'), styles.alignItems('center'), styles.gap(0.5))}
           style={{ color: 'inherit', textDecoration: 'none' }}
         >
-          PokeDex
-        </Typography>
+          <motion.div
+            whileHover={{ rotate: 360 }}
+            transition={{ duration: 0.6, ease: 'easeInOut' }}
+            style={{ display: 'inline-flex' }}
+          >
+            <CatchingPokemonIcon />
+          </motion.div>
+          <Typography variant="h6">PokeDex</Typography>
+        </Box>
       </Box>
       {session ? (
         <Button onClick={() => supabase.auth.signOut()} color="inherit">
