@@ -1,17 +1,8 @@
 import { fetchPokemonDetail } from '@/Api';
-import { FavoriteButton } from '@/Components';
+import { FavoriteButton, StatBar } from '@/Components';
 import { ROUTES } from '@/Consts';
 import { useIsMobile } from '@/Hooks';
-import {
-  Box,
-  Chip,
-  CircularProgress,
-  LinearProgress,
-  Stack,
-  Typography,
-  mergeCSS,
-  styles,
-} from '@pokedex/ui';
+import { Box, Chip, CircularProgress, Stack, Typography, mergeCSS, styles } from '@pokedex/ui';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { memo, Suspense } from 'react';
 import { Link, useParams } from 'react-router';
@@ -24,7 +15,6 @@ type DetailPageContentProps = {
 const MAX_BASE_STAT = 255;
 
 const rowClassName = mergeCSS(styles.display('flex'), styles.alignItems('center'), styles.gap(1));
-const spaceBetweenClassName = mergeCSS(styles.display('flex'), styles.justifyContent('space-between'));
 
 const DetailPageContentComponent = (props: DetailPageContentProps) => {
   const { id } = props;
@@ -84,16 +74,7 @@ const DetailPageContentComponent = (props: DetailPageContentProps) => {
         <Typography variant="h6">種族値</Typography>
         <Stack spacing={1} style={{ marginTop: 8 }}>
           {data.stats.map(stat => (
-            <Box key={stat.name}>
-              <Box className={spaceBetweenClassName}>
-                <Typography variant="body2">{stat.name}</Typography>
-                <Typography variant="body2">{stat.value}</Typography>
-              </Box>
-              <LinearProgress
-                variant="determinate"
-                value={Math.min(100, (stat.value / MAX_BASE_STAT) * 100)}
-              />
-            </Box>
+            <StatBar key={stat.name} name={stat.name} value={stat.value} max={MAX_BASE_STAT} />
           ))}
         </Stack>
       </Box>
